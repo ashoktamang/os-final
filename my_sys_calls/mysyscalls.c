@@ -1,8 +1,9 @@
-#include <linux/erno.h>
+#include <linux/errno.h>
 #include <linux/kernel.h>
 #include <linux/slab.h>
 #include <linux/spinlock.h>
 #include <linux/uaccess.h>
+#include <linux/linkage.h>
 
 unsigned int my_accumulator;
 char* my_string;
@@ -10,7 +11,7 @@ char* my_string;
 EXPORT_SYMBOL(my_string);
 EXPORT_SYMBOL(my_accumulator);
 
-asmlinkage long sys_my_set_state(char string, int accumulator) {
+asmlinkage long sys_my_set_state(char the_string, int accumulator) {
 	if (accumulator < 0) {
 		return -EINVAL;
 	}
@@ -19,7 +20,7 @@ asmlinkage long sys_my_set_state(char string, int accumulator) {
 	printk("\nUser value received: %d\n", accumulator);
 	printk("Value of my_accumulator set as: %d\n\n", my_accumulator);
 
-	unsigned int len_string = strlen_user(string);
+	unsigned int len_string = strlen_user(the_string);
 
 	if (my_string)
 		kfree(my_string);
@@ -27,14 +28,14 @@ asmlinkage long sys_my_set_state(char string, int accumulator) {
 		return -EFAULT;
 	}
 	// Check if copy fails
-	if (copy_from_user(my_string, string, len_string) {
+	if (copy_from_user(my_string, the_string, len_string)) {
 		kfree(my_string);
-		return -EFAUlT;
+		return -EFAULT;
 	}
 
 	// Return success
 	printk("Succeeded in copying.\n");
-	printk("Received User String: %s\n", string);
+	printk("Received User String: %s\n", the_string);
 	printk("\n Value of my_string set as: %s\n", my_string);
 	
 	return 0;	
@@ -54,8 +55,8 @@ asmlinkage long sys_my_get_and_sum(int *my_value, int inc_value) {
 	printk("my_accumulator new value: %d\n", my_accumulator);
 
 	// Check if copy fails
-	if (copy_from_user(my_value, &my_accumulator, sizeof(int)) {
-		return -EFAUlT;
+	if (copy_from_user(my_value, &my_accumulator, sizeof(int))) {
+		return -EFAULT;
 	}
 	printk(KERN_INFO "Currently my_value pointer points to a value of %d\n", my_value);
 
@@ -72,7 +73,7 @@ asmlinkage long sys_my_get_string(char *buf, int bsize) {
 	}
 	slen = strlen(my_string);
 	copylen = min(slen, bsize - 1);
-	if (copylen === slen) {
+	if (copylen == slen) {
 		if ((temp_str = (char *) kmalloc(sizeof(slen), GFP_KERNEL)) != NULL) {
 			return -EFAULT;
 		}
