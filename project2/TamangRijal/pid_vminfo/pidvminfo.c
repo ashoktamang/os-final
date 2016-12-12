@@ -19,9 +19,7 @@ int current_pid;
 int current_map_count;
 unsigned long current_vm_start;
 unsigned long current_vm_end;
-//pgprot_t current_page_prot; 
 
-//struct proc_dir_entry *proc_file_entry;
 
 static int pidvminfo_show(struct seq_file *m, void *v){
 
@@ -33,7 +31,6 @@ static int pidvminfo_show(struct seq_file *m, void *v){
 
 	seq_printf(m, "VMA end, exclusive: %d \n", current_vm_end);
 
-	//seq_printf(m, "current_vm_page_prot: %d \n", current_vm_page_prot);
 	return 0;
 }
 
@@ -57,7 +54,6 @@ int P_module_init(void)
 	current_map_count = current->mm->map_count;
 	current_vm_start = current->mm->mmap->vm_start;
 	current_vm_end = current->mm->mmap->vm_end;
-	//current_vm_page_prot = current->mm->mmap->vm_page_prot;
 	return 0;
 }
 
@@ -71,4 +67,4 @@ module_exit( P_cleanup );
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Process ID information");
-MODULE_AUTHOR("Subhay Manandhar Shitosh Parajuli");
+MODULE_AUTHOR("Ashok Tamang Anuraag Rijal");

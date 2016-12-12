@@ -1,3 +1,4 @@
+
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/moduleparam.h>
@@ -5,20 +6,21 @@
 #include <linux/list.h>
 #include <linux/kernel.h>
 
-//i got error while trying to take Pid as a parameter of the funciton so I defined the global variable named pid to store the pid_number that we want to investigate 
 
-int p_id=2;
+int p_id = 0;
 struct pid *pid_struct;
 struct task_struct *task;
 struct task_struct *parent_task;
 struct task_struct *children_task;
 struct list_head *list;
 
-//module_param(p_id, int, 0);
+
+module_param(p_id, int, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+MODULE_PARM_DESC(myshort, "A int integer as Process ID");
+
 //funciton that gets called when module is loaded int he kernel 
 int P_module_init(void)
 {	
-	//printk (KERN_INFO "CURRENT Memory state: %d \n", current->pid); 
 
 	printk (KERN_INFO "Module loaded\n");	
 
@@ -77,4 +79,4 @@ module_exit( P_cleanup );
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Process ID information");
-MODULE_AUTHOR("Subhay Manandhar Shitosh Parajuli");
+MODULE_AUTHOR("Ashok Tamang Anuraag Rijal");
