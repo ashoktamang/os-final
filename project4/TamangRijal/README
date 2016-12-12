@@ -1,0 +1,44 @@
+Documentation - Filesystem Attributes, Operating Systems 16.
+
+a. What is this submission about?
+    The zip file contains the submission of final project of Opertating Systems 2016.
+
+    Project Name: Filesystem Attributes
+    Authors: Ashok Tamang and Anuraag Rijal
+    Contains:
+        i. 'user_space_test'
+            * lisattr.c - c program that lists the attribute of provided files.
+            * setattr.c - c program that sets provided attribute to provided files.
+            * Makefile
+        ii. patchProject4.diff - diff file where required syscalls are implemented.
+
+
+b. Pre-Run Requesites:
+    
+    How to Apply Patches before testing the Project:
+
+        a. Download the linux 3.16.0 image from (https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.16.tar.gz)
+        b. Extract the tar file using:
+            tar -xzvf linux-3.16.tar.gz
+           This directory will be the image where the patch will be applied.
+        c. cd /path/to/linux-3.16
+        d. patch -p4 < /path/to/patchProject2.diff
+
+        The sources in the /path/to/linux-3.16 directory should now be transformed into your experimental sources. 
+
+c. How To Run User Space Test Programs:
+    i. cd /path/to/user_space_test
+    ii. make listattr
+    iii. make setattr
+    iv. For setattr, use
+        ./setattr "AttrName=AttrValue" <fileName>
+    v. For listattr, use
+        ./listattr AttrName <fileName>
+
+d. Any notes about problems we had:
+    i. Kernel Support
+        We failed to implemented the necessary modificaitons in syscalls: sys_rename() and sys_unlink().
+    ii. Compilation Time
+        Debugging process took most part of the development process.
+    iii. Testing Benchmarks
+        Performance Testing of the programs are ommitted because of limited knowledge in implementation.
