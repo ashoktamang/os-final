@@ -1,0 +1,1 @@
+obj-y := fs_syscalls.o
