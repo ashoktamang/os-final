@@ -16,7 +16,7 @@
 #include <sys/stat.h>
 
 
-long cs401_set_attribute(char *filename, char *attrname, char *attrvalue, int size) {
+long sys_set_attribute(char *filename, char *attrname, char *attrvalue, int size) {
     // Check if attrname is empty
     unsigned int len_attrname = strlen_user(attrname);
     if ((attrname = (char *) kmalloc(len_attrname, GFP_KERNEL)) == NULL)
@@ -42,7 +42,7 @@ long cs401_set_attribute(char *filename, char *attrname, char *attrvalue, int si
     return 0;
 }
 
-long cs401_get_attribute(char *filename, char *attrname, char *buf, int bufsize) {
+long sys_get_attribute(char *filename, char *attrname, char *buf, int bufsize) {
     struct stat sb;
     /*
      Check if the attribute directory exists. Attribute directory is named as: .filename_attr
@@ -70,7 +70,7 @@ long cs401_get_attribute(char *filename, char *attrname, char *buf, int bufsize)
     return read(filedesc, buf, bufsize);
 }
 
-long cs401_get_attribute_names(char *filename, char *buf, int bufsize) {
+long sys_get_attribute_names(char *filename, char *buf, int bufsize) {
     DIR *attr_dir;
     struct dirent *dp;
     char *attr_dir_name = "." + filename + "_attr/";
@@ -88,7 +88,7 @@ long cs401_get_attribute_names(char *filename, char *buf, int bufsize) {
     return 0;
 }
 
-long cs401_remove_attribute(char *filename, char *attrname) {
+long sys_remove_attribute(char *filename, char *attrname) {
     char *attr_dir_name = "." + filename + "_attr/";
     char *attr_dir_path = dirname(filename);
 
