@@ -35,7 +35,13 @@ c. How To Run User Space Test Programs:
     v. For listattr, use
         ./listattr AttrName <fileName>
 
-d. Any notes about problems we had:
+d. Syscall Number:
+	354 	i386	set_attribute		sys_set_attribute
+	355		i386	get_attribute		sys_get_attribute
+	356		i386	get_attribute_names	sys_get_attribute_names
+	357		i386	remove_attribute	sys_remove_attribute
+
+e. Any notes about problems we had:
     i. Kernel Support
         We failed to implemented the necessary modificaitons in syscalls: sys_rename() and sys_unlink().
     ii. Compilation Time
