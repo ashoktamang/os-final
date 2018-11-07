@@ -79,4 +79,3 @@ module_exit( P_cleanup );
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Process ID information");
-MODULE_AUTHOR("Ashok Tamang Anuraag Rijal");
