@@ -16,19 +16,21 @@ struct list_head *list;
 
 
 module_param(p_id, int, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
-MODULE_PARM_DESC(myshort, "A int integer as Process ID");
+MODULE_PARM_DESC(myshort, "An int integer as Process ID");
 
-//funciton that gets called when module is loaded int he kernel 
+//funciton that gets called when module is loaded in the kernel 
 int P_module_init(void)
 {	
 
-	printk (KERN_INFO "Module loaded\n");	
-
+	printk (KERN_INFO "Module loaded.\n");	
+	printk (KERN_INFO "Input p_id: %d \n", p_id); 
 
 	//gets the process id of the given process
 	pid_struct = find_get_pid(p_id);
 
-
+	if (!pid_struct) {
+		return -EINVAL;
+	}
 	// the task points to the task_struct of the process of p_id
 	task = pid_task(pid_struct, PIDTYPE_PID);
 
