@@ -7,7 +7,7 @@
 #include <linux/kernel.h>
 
 
-int p_id = 0;
+int p_id = 1;
 struct pid *pid_struct;
 struct task_struct *task;
 struct task_struct *parent_task;
