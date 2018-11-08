@@ -15,7 +15,11 @@ a. Copy "pid_info" and "pid_vminfo" directory to /path/to/linux-3.16
 b. Go to the directory pid_info and run the command: `make`
 c. sudo insmod pid_info.ko p_id=<ProcessID> to load the module.
 d. sudo rmmod pid_info to unload the module.
-e. Follow steps (b) to (c) for the module 'pid_vminfo' as well.
+
+a. Go to the directory pid_vminfo and run the command: `make`
+b. sudo insmod pid_vminfo.ko to load the module.
+c. cat /proc/pid_vminfo for log output.
+d. sudo rmmod pid_vminfo to unload the module.
 
 How to Run Part 2:
 a. Create C file to call the syscalls.
